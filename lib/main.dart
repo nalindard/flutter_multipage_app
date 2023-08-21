@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:state_multipage_app/providers/counter_provider.dart';
+import 'package:state_multipage_app/providers/shopping_cart_provider.dart';
 import 'package:state_multipage_app/screens/home_screen.dart';
 import 'package:state_multipage_app/screens/settings/display/brightness_screen.dart';
 import 'package:state_multipage_app/screens/settings/display/index.dart';
@@ -15,11 +18,18 @@ import 'package:state_multipage_app/screens/user/personality_screen.dart';
 // import 'package:state_multipage_app/screens/user_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => Counter()),
+      ChangeNotifierProvider(create: (_) => ShoppingCart()),
+    ],
+    child: MyApp(),
+  ));
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

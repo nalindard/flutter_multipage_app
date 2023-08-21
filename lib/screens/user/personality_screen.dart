@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/shopping_cart_provider.dart';
 
 class UserPersonalityScreen extends StatelessWidget {
   const UserPersonalityScreen({super.key});
@@ -9,8 +12,23 @@ class UserPersonalityScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("User Screen --> Personality"),
       ),
-      body: const Center(
-        child: Text("User settings --> Personality"),
+      body: Column(
+        children: [
+          const Center(
+            child: Text("User settings --> Personality"),
+          ),
+          Text('${context.watch<ShoppingCart>().itemCount}'),
+          Text('${context.watch<ShoppingCart>().cart}'),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.read<ShoppingCart>().addCartItem("Strewberry");
+            },
+            child: const Text("Add Item"),
+          )
+        ],
       ),
     );
   }
